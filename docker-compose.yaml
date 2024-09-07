@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.3
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: "true"
+      #to keep compatible with other services that are expecting /auth
+      KC_HTTP_RELATIVE_PATH: /auth
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+    volumes:
+      - ./target/:/opt/keycloak/providers/
+    ports:
+    - "8080:8080"
+    command: ["start-dev"]
